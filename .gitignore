@@ -1,6 +1,7 @@
 # compiled output
 /dist
 /node_modules
+tsconfig.build.tsbuildinfo
 
 # Logs
 logs
@@ -33,3 +34,7 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Environment variables
+.env
+.env.test
