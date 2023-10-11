@@ -24,5 +24,19 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "sourceMap": true, // TODO: Consider to turning this off for production
+    "paths": {
+      "@node/*": [
+        "./node_modules/*"
+      ],
+      "@root/*": [
+        "./*"
+      ],
+      "@src/*": [
+        "./src/*"
+      ],
+      "@test/*": [
+        "./test/*"
+      ],
+    }
   }
 }

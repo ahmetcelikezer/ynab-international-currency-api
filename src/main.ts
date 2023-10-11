@@ -1,5 +1,6 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from '@src/app/app.module';
 
 async function bootstrap(): Promise<void> {
   const PORT = 3000;
@@ -7,4 +8,5 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   await app.listen(PORT);
 }
-bootstrap().catch((err) => console.error(err));
+
+bootstrap().catch((err) => Logger.error(err));
