@@ -63,7 +63,7 @@ module.exports = {
     'import/no-unresolved': [
       'error',
       {
-        ignore: ['^@node/', '^@src/', '^@root/', '^@test/'],
+        ignore: ['^@node/', '^@config/', '^@src/', '^@root/', '^@test/'],
       },
     ],
   },

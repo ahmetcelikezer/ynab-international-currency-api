@@ -5,6 +5,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "target": "ES2021",
     "baseUrl": "./",
     "outDir": "./dist",
@@ -24,6 +25,7 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "sourceMap": true, // TODO: Consider to turning this off for production
+    "resolveJsonModule": true,
     "paths": {
       "@node/*": [
         "./node_modules/*"
@@ -33,6 +35,9 @@
       ],
       "@src/*": [
         "./src/*"
+      ],
+      "@config/*": [
+        "./config/*"
       ],
       "@test/*": [
         "./test/*"
