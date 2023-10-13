@@ -55,15 +55,25 @@ const getAppEnvironment = (): EEnvironment => {
   );
 };
 
-export default registerAs(
-  APP_CONFIG_KEY,
-  (): IAppConfig => ({
+export default registerAs(APP_CONFIG_KEY, (): IAppConfig => {
+  const isDebugEnabled = Boolean(
+    Config.getEnvironmentVariableWithFallback('DEBUG', 'false'),
+  );
+  const appEnvironment = getAppEnvironment();
+
+  if (isDebugEnabled && appEnvironment === EEnvironment.PRODUCTION) {
+    throw new Error(
+      'Debug mode is not allowed in production environment! Please set DEBUG=false or NODE_ENV to something else than production!',
+    );
+  }
+
+  return {
     port: parseInt(
       Config.getEnvironmentVariableWithFallback('PORT', '3000'),
       10,
     ),
     version: new AppVersion(packageJSON.version),
-    environment: getAppEnvironment(),
-    debug: process.env.DEBUG === 'true',
-  }),
-);
+    environment: appEnvironment,
+    debug: isDebugEnabled,
+  };
+});

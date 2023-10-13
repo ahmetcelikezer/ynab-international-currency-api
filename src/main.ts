@@ -18,6 +18,10 @@ async function bootstrap(): Promise<void> {
     `Server(v${appConfig.version.version}) is running on port ${appConfig.port} 🚀 (Environment: ${appConfig.environment}, Debug Mode: ${appConfig.debug})`,
     'Application',
   );
+
+  if (appConfig.debug) {
+    Logger.log('Debug mode is enabled', 'Application');
+  }
 }
 
 bootstrap().catch((err) => Logger.error(err, 'Application'));
