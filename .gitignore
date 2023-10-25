@@ -38,3 +38,6 @@ lerna-debug.log*
 # Environment variables
 .env
 .env.test
+
+# Docker
+.docker/volumes/*
