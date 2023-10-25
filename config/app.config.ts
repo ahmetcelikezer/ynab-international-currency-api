@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 import { Config } from '@config/config';
 import packageJSON from '@root/package.json';
 
-export const APP_CONFIG_KEY = 'CONFIG:APP';
+export const APP_CONFIG_TOKEN = Symbol('config.app');
 
 export enum EEnvironment {
   LOCAL = 'local',
@@ -55,7 +55,7 @@ const getAppEnvironment = (): EEnvironment => {
   );
 };
 
-export default registerAs(APP_CONFIG_KEY, (): IAppConfig => {
+export default registerAs(APP_CONFIG_TOKEN.toString(), (): IAppConfig => {
   const isDebugEnabled = Boolean(
     Config.getEnvironmentVariableWithFallback('DEBUG', 'false'),
   );
