@@ -11,7 +11,6 @@ import appConfig from '@config/app.config';
       cache: true,
     }),
   ],
-  controllers: [],
   providers: [],
 })
 export class AppModule {}
