@@ -7,6 +7,18 @@ services:
     env_file:
       - .env
     ports:
-      - '${REDIS_PORT}:6379'
+      - '6379:6379'
     volumes:
       - .docker/volumes/redis:/data
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ynab-ic-postgres
+    environment:
+      POSTGRES_USER: moon_man
+      POSTGRES_PASSWORD: goodbye
+      POSTGRES_DB: ynab_ic
+    ports:
+      - '5432:5432'
+    volumes:
+      - .docker/volumes/postgres:/var/lib/postgresql/data
