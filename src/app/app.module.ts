@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import appConfig from '@config/app.config';
-import redisConfig from '@root/config/redis.config';
+import redisConfig from '@config/redis.config';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import authConfig from '@config/auth.config';
 
 @Module({
@@ -12,6 +13,7 @@ import authConfig from '@config/auth.config';
       isGlobal: true,
       cache: true,
     }),
+    MikroOrmModule.forRoot(),
   ],
   providers: [],
 })
