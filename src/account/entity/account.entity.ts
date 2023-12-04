@@ -1,4 +1,5 @@
 import {
+  DateTimeType,
   Entity,
   EntityRepositoryType,
   Index,
@@ -28,6 +29,9 @@ export class Account {
 
   @Property({ type: StringType })
   public hashedPassword: string;
+
+  @Property({ type: DateTimeType })
+  public lastPasswordChangedAt: Date = new Date();
 
   [EntityRepositoryType]?: AccountRepository;
   constructor(emailAddress: string, hashedPassword: string) {
