@@ -22,6 +22,7 @@ export class Account {
     owner: true,
     orphanRemoval: true,
     unique: true,
+    eager: true,
   })
   public email: Email;
 
