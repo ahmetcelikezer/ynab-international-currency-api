@@ -26,7 +26,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async validateAccount(
+  public async getValidatedAuthenticatedAccount(
     payload: TJWTPayload,
   ): Promise<AuthenticatedAccountPayload | null> {
     const account = await this.accountService.getAccountByEmailAddress(

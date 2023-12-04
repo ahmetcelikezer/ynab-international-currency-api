@@ -24,7 +24,8 @@ export class JwtSrategy extends PassportStrategy(Strategy) {
   public async validate(
     payload: TJWTPayload,
   ): Promise<AuthenticatedAccountPayload> {
-    const account = await this.authService.validateAccount(payload);
+    const account =
+      await this.authService.getValidatedAuthenticatedAccount(payload);
 
     if (!account) {
       throw new UnauthorizedException('Unauthorized');
