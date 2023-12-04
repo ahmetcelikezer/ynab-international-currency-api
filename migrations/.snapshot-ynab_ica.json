@@ -1,0 +1,182 @@
+{
+  "namespaces": [
+    "public"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(320)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 320,
+          "mappedType": "string"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "banned_at": {
+          "name": "banned_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 0,
+          "default": "null",
+          "mappedType": "datetime"
+        }
+      },
+      "name": "emails",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "address"
+          ],
+          "composite": false,
+          "keyName": "emails_address_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "address"
+          ],
+          "composite": false,
+          "keyName": "emails_address_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "emails_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "hashed_password": {
+          "name": "hashed_password",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "last_password_changed_at": {
+          "name": "last_password_changed_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "accounts",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "email_id"
+          ],
+          "composite": false,
+          "keyName": "accounts_email_id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "email_id"
+          ],
+          "composite": false,
+          "keyName": "accounts_email_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "accounts_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "accounts_email_id_foreign": {
+          "constraintName": "accounts_email_id_foreign",
+          "columnNames": [
+            "email_id"
+          ],
+          "localTableName": "public.accounts",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.emails",
+          "updateRule": "cascade"
+        }
+      }
+    }
+  ]
+}
