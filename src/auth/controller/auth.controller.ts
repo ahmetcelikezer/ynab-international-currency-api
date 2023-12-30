@@ -16,13 +16,33 @@ import { RegisterRequestDTO } from '@src/auth/dto/register-request.dto';
 import { Request, Response } from 'express';
 import { ECookie } from '@src/auth/enum/cookie.enum';
 import { AuthenticatedAccountGuard } from '@src/auth/guard/authenticated-account.guard';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   @Version('1')
+  @ApiOperation({
+    summary: 'Login with account',
+    description:
+      'Login with an email and password. Returns an access token and sets a refresh token in a cookie http-only and safe.',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'When the account is successfully logged in.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'When the request body is invalid.',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'When the credentials are invalid.',
+  })
+  @ApiBody({ type: LoginRequestDTO })
   public async login(
     @Body() loginRequestDto: LoginRequestDTO,
     @Res() response: Response,
@@ -43,6 +63,24 @@ export class AuthController {
 
   @Post('register')
   @Version('1')
+  @ApiOperation({
+    summary: 'Register an account',
+    description:
+      'Register an account with an email and password. Returns an access token and sets a refresh token in a cookie http-only and safe.',
+  })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'When the account is successfully registered.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'When the request body is invalid.',
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: 'When the email is already in use.',
+  })
+  @ApiBody({ type: RegisterRequestDTO })
   public async registerAccount(
     @Body() registerRequestDto: RegisterRequestDTO,
     @Res() response: Response,
@@ -65,6 +103,19 @@ export class AuthController {
   @Post('refresh')
   @UseGuards(AuthenticatedAccountGuard)
   @Version('1')
+  @ApiOperation({
+    summary: 'Refresh the access token.',
+    description:
+      'Requires a valid refresh token. The refresh token is sent in a cookie http-only and safe.',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Access token refreshed successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Invalid or expired refresh token.',
+  })
   public async refreshAccessToken(
     @Req() request: Request,
   ): Promise<TAuthLoginToken> {
