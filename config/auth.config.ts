@@ -4,24 +4,34 @@ import { Config } from '@config/config';
 export const AUTH_CONFIG_TOKEN = Symbol('config.auth');
 
 export type TAuthConfig = {
-  secretKey: string;
+  accessTokenSecret: string;
+  refreshTokenSecret: string;
   saltRounds: number;
   jwtIssuer: string;
   jwtAudience: string;
-  jwtExpirationTime: string;
+  accessTokenExpirationTime: number;
+  refreshTokenExpirationTime: number;
 };
 
 export default registerAs(AUTH_CONFIG_TOKEN.toString(), (): TAuthConfig => {
   return {
-    secretKey: Config.getEnvironmentVariable('AUTH_SECRET_KEY'),
+    accessTokenSecret: Config.getEnvironmentVariable('AUTH_JWT_SECRET_KEY'),
     saltRounds: parseInt(
       Config.getEnvironmentVariable('AUTH_PASSWORD_SALT_ROUNDS'),
       10,
     ),
     jwtIssuer: Config.getEnvironmentVariable('AUTH_JWT_ISSUER'),
     jwtAudience: Config.getEnvironmentVariable('AUTH_JWT_AUDIENCE'),
-    jwtExpirationTime: Config.getEnvironmentVariable(
-      'AUTH_JWT_EXPIRATION_TIME_SECOND',
+    accessTokenExpirationTime: parseInt(
+      Config.getEnvironmentVariable('AUTH_JWT_EXPIRATION_TIME_SECOND'),
+      10,
+    ),
+    refreshTokenExpirationTime: parseInt(
+      Config.getEnvironmentVariable('AUTH_JWT_REFRESH_EXPIRATION_TIME_SECOND'),
+      10,
+    ),
+    refreshTokenSecret: Config.getEnvironmentVariable(
+      'AUTH_JWT_REFRESH_SECRET_KEY',
     ),
   };
 });

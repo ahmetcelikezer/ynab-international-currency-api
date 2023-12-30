@@ -22,9 +22,9 @@ import { AccountModule } from '@src/account/account.module';
         }
 
         return {
-          secret: authConfig.secretKey,
+          secret: authConfig.accessTokenSecret,
           signOptions: {
-            expiresIn: authConfig.jwtExpirationTime,
+            expiresIn: authConfig.accessTokenExpirationTime,
             issuer: authConfig.jwtIssuer,
             audience: authConfig.jwtAudience,
           },
