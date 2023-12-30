@@ -26,6 +26,8 @@
     "noImplicitOverride": true,
     "sourceMap": true, // TODO: Consider to turning this off for production
     "resolveJsonModule": true,
+    "declaration": true,
+    "removeComments": true,
     "paths": {
       "@node/*": [
         "./node_modules/*"
