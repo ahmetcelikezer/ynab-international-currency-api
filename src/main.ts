@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { APP_CONFIG_TOKEN, IAppConfig } from '@root/config/app.config';
 import { AppModule } from '@src/app/app.module';
 import cookieParser from 'cookie-parser';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,16 @@ async function bootstrap(): Promise<void> {
   if (!appConfig) {
     throw new Error('App config not found');
   }
+
+  const config = new DocumentBuilder()
+    .setTitle('YNAB International Currency API')
+    .setDescription(
+      'This project is not affiliated with YNAB. It is a personal project to allow for international currencies and more in YNAB.',
+    )
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-doc', app, document);
 
   app.use(cookieParser());
 
